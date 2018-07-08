@@ -6,7 +6,7 @@
     <bean id="t1000" class="org.pantheon.ModelT1000">
         <constructor-arg ref="sonyHead"/>
         <constructor-arg ref="toshibaHand"/>
-        <constructor-arg ref="sonyLeg"/>
+        <constructor-arg ref="toshibaLeg"/>
     </bean>
 
     <bean id="sonyHead" class="org.pantheon.sony.SonyHead"/>
