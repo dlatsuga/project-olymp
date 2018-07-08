@@ -6,11 +6,14 @@
 
     <import resource="toshiba_context.xml"/>
     <import resource="sony_context.xml"/>
+    <import resource="db_context.xml"/>
 
     <bean id="t1000" class="org.pantheon.ModelT1000"
           p:head-ref="sonyHead"
           p:hand-ref="sonyHand"
-          p:leg-ref="sonyLeg">
+          p:leg-ref="sonyLeg"
+
+          depends-on="databaseBean">
 
         <constructor-arg value="silver" type="java.lang.String"/>
         <constructor-arg value="2006" type="int"/>
