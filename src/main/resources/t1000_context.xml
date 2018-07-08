@@ -4,6 +4,9 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="toshiba_context.xml"/>
+    <import resource="sony_context.xml"/>
+
     <bean id="t1000" class="org.pantheon.ModelT1000"
           p:head-ref="sonyHead"
           p:hand-ref="sonyHand"
@@ -17,20 +20,11 @@
     <bean id="t1000Empty" class="org.pantheon.ModelT1000"
           scope="prototype"
           init-method="initMethod"
-          destroy-method="destroyMethod"
+          destroy-method="destroyMethod">
 
-    >
         <constructor-arg ref="toshibaHead"/>
         <constructor-arg ref="toshibaHand"/>
         <constructor-arg ref="toshibaLeg"/>
     </bean>
-
-    <bean id="sonyHead" class="org.pantheon.sony.SonyHead"/>
-    <bean id="sonyHand" class="org.pantheon.sony.SonyHand"/>
-    <bean id="sonyLeg" class="org.pantheon.sony.SonyLeg"/>
-
-    <bean id="toshibaHead" class="org.pantheon.toshiba.ToshibaHead"/>
-    <bean id="toshibaHand" class="org.pantheon.toshiba.ToshibaHand"/>
-    <bean id="toshibaLeg" class="org.pantheon.toshiba.ToshibaLeg"/>
 
 </beans>
