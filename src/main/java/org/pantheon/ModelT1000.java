@@ -1,5 +1,10 @@
 package org.pantheon;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ModelT1000 implements Robot {
     private Head head;
     private Hand hand;
