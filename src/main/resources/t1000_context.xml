@@ -9,12 +9,8 @@
     <import resource="db_context.xml"/>
 
     <bean id="t1000" class="org.pantheon.ModelT1000"
-          p:head-ref="sonyHead"
-          p:hand-ref="sonyHand"
-          p:leg-ref="sonyLeg"
-
-          depends-on="databaseBean">
-
+          depends-on="databaseBean"
+          parent="baseModel">
         <constructor-arg value="silver" type="java.lang.String"/>
         <constructor-arg value="2006" type="int"/>
         <constructor-arg value="true" type="boolean"/>
@@ -23,8 +19,11 @@
     <bean id="t1000Empty" class="org.pantheon.ModelT1000"
           scope="prototype"
           init-method="initMethod"
-          destroy-method="destroyMethod">
+          destroy-method="destroyMethod"
+          parent="baseModel">
+    </bean>
 
+    <bean id="baseModel" class="org.pantheon.BaseModel" abstract="true">
         <constructor-arg ref="toshibaHead"/>
         <constructor-arg ref="toshibaHand"/>
         <constructor-arg ref="toshibaLeg"/>
