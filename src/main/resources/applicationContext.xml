@@ -14,7 +14,12 @@
         <constructor-arg value="true" type="boolean"/>
     </bean>
 
-    <bean id="t1000Empty" class="org.pantheon.ModelT1000" scope="prototype">
+    <bean id="t1000Empty" class="org.pantheon.ModelT1000"
+          scope="prototype"
+          init-method="initMethod"
+          destroy-method="destroyMethod"
+
+    >
         <constructor-arg ref="toshibaHead"/>
         <constructor-arg ref="toshibaHand"/>
         <constructor-arg ref="toshibaLeg"/>

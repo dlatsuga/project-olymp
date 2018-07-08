@@ -15,5 +15,7 @@ public class Start {
         t1000Empty_1.action();
 
         System.out.println("********* " + (t1000Empty_1 == t1000Empty_2));
+        System.out.println(t1000Empty_1);
+        System.out.println(t1000Empty_2);
     }
 }
