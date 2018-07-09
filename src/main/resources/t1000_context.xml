@@ -6,19 +6,15 @@
     <import resource="toshiba_context.xml"/>
     <import resource="sony_context.xml"/>
 
-    <bean id="actionReplacer" class="org.pantheon.ActionReplacer" scope="prototype"/>
-
-    <bean id="t1000" class="org.pantheon.ModelT1000"
+    <bean id="t1000" class="org.pantheon.robot.ModelT1000"
           parent="baseModel"
           scope="prototype">
         <constructor-arg value="silver" type="java.lang.String"/>
         <constructor-arg value="2006" type="int"/>
         <constructor-arg value="true" type="boolean"/>
-
-        <replaced-method name="action" replacer="actionReplacer"/>
     </bean>
 
-    <bean id="baseModel" class="org.pantheon.BaseModel" abstract="true">
+    <bean id="baseModel" class="org.pantheon.robot.BaseModel" abstract="true">
         <constructor-arg ref="toshibaHead"/>
         <constructor-arg ref="toshibaHand"/>
         <constructor-arg ref="toshibaLeg"/>

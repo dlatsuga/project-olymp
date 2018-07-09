@@ -1,6 +1,6 @@
-package org.pantheon.toshiba;
+package org.pantheon.spares.toshiba;
 
-import org.pantheon.Hand;
+import org.pantheon.spares.Hand;
 
 public class ToshibaHand implements Hand {
     @Override

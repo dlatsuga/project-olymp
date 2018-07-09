@@ -1,7 +1,10 @@
-package org.pantheon;
+package org.pantheon.robot;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.pantheon.spares.Hand;
+import org.pantheon.spares.Head;
+import org.pantheon.spares.Leg;
 
 @Getter
 @Setter

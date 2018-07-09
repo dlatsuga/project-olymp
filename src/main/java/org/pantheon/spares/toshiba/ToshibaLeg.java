@@ -1,6 +1,6 @@
-package org.pantheon.toshiba;
+package org.pantheon.spares.toshiba;
 
-import org.pantheon.Leg;
+import org.pantheon.spares.Leg;
 
 public class ToshibaLeg implements Leg {
     @Override

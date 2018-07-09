@@ -1,6 +1,6 @@
-package org.pantheon.sony;
+package org.pantheon.spares.sony;
 
-import org.pantheon.Leg;
+import org.pantheon.spares.Leg;
 
 public class SonyLeg implements Leg {
     @Override

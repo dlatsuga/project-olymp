@@ -1,4 +1,4 @@
-package org.pantheon;
+package org.pantheon.spares;
 
 public interface Leg {
     void go();

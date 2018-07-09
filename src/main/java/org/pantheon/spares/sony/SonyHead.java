@@ -1,6 +1,6 @@
-package org.pantheon.sony;
+package org.pantheon.spares.sony;
 
-import org.pantheon.Head;
+import org.pantheon.spares.Head;
 
 public class SonyHead implements Head {
     @Override
