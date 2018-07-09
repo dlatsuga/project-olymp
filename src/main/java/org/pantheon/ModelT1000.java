@@ -29,6 +29,7 @@ public class ModelT1000 extends BaseModel {
         this.color = color;
         this.year = year;
         this.soundEnabled = soundEnabled;
+        System.out.println(this + " created");
     }
 
     @Override
@@ -44,13 +45,5 @@ public class ModelT1000 extends BaseModel {
     @Override
     public void dance() {
         System.out.println("ModelT1000 dancing...");
-    }
-
-    private void initMethod() {
-        System.out.println(this + " t1000 initializing...");
-    }
-
-    private void destroyMethod() {
-        System.out.println(this + " t1000 destroying...");
     }
 }

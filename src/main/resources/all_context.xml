@@ -5,4 +5,8 @@
 
     <import resource="t1000_context.xml"/>
 
+    <bean id="t1000Conveyor" class="org.pantheon.RobotConveyor">
+        <lookup-method name="createRobot" bean="t1000"/>
+    </bean>
+
 </beans>

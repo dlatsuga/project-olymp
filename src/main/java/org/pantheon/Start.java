@@ -6,7 +6,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Start {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("all_context.xml");
-        ModelT1000 t1000_1 = (ModelT1000) context.getBean("t1000");
-        t1000_1.action();
+        RobotConveyor conveyor = (RobotConveyor) context.getBean("t1000Conveyor");
+        Robot terminator1 = conveyor.createRobot();
+        Robot terminator2 = conveyor.createRobot();
+        Robot terminator3 = conveyor.createRobot();
+
+        System.out.println("terminator1 : " + terminator1);
+        System.out.println("terminator2 : " + terminator2);
+        System.out.println("terminator3 : " + terminator3);
     }
 }
