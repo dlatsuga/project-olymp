@@ -14,5 +14,11 @@ public class Start {
         System.out.println("terminator1 : " + terminator1);
         System.out.println("terminator2 : " + terminator2);
         System.out.println("terminator3 : " + terminator3);
+
+        System.out.println("****************************");
+
+        terminator1.action();
+        terminator2.action();
+        terminator3.action();
     }
 }
