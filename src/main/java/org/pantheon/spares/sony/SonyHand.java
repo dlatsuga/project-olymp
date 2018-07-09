@@ -1,6 +1,6 @@
-package org.pantheon.sony;
+package org.pantheon.spares.sony;
 
-import org.pantheon.Hand;
+import org.pantheon.spares.Hand;
 
 public class SonyHand implements Hand {
     @Override

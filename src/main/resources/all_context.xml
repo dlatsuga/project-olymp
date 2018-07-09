@@ -5,8 +5,24 @@
 
     <import resource="t1000_context.xml"/>
 
-    <bean id="t1000Conveyor" class="org.pantheon.RobotConveyor">
-        <lookup-method name="createRobot" bean="t1000"/>
+    <bean id="t1000Pool" class="org.pantheon.T1000Pool">
+        <property name="robotCollection">
+            <list>
+                <ref bean="t1000"/>
+
+                <bean class="org.pantheon.robot.ModelT1000" parent="baseModel" scope="prototype">
+                    <constructor-arg value="goold" type="java.lang.String"/>
+                    <constructor-arg value="2018" type="int"/>
+                    <constructor-arg value="true" type="boolean"/>
+                </bean>
+
+                <bean class="org.pantheon.robot.ModelT1000" parent="baseModel" scope="prototype">
+                    <constructor-arg value="platinum" type="java.lang.String"/>
+                    <constructor-arg value="2019" type="int"/>
+                    <constructor-arg value="true" type="boolean"/>
+                </bean>
+            </list>
+        </property>
     </bean>
 
 </beans>
