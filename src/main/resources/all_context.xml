@@ -1,28 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <import resource="t1000_context.xml"/>
+    <context:annotation-config/>
 
-    <bean id="t1000Pool" class="org.pantheon.T1000Pool">
-        <property name="robotCollection">
-            <list>
-                <ref bean="t1000"/>
+    <import resource="sony_context.xml"/>
+    <import resource="toshiba_context.xml"/>
 
-                <bean class="org.pantheon.robot.ModelT1000" parent="baseModel" scope="prototype">
-                    <constructor-arg value="goold" type="java.lang.String"/>
-                    <constructor-arg value="2018" type="int"/>
-                    <constructor-arg value="true" type="boolean"/>
-                </bean>
-
-                <bean class="org.pantheon.robot.ModelT1000" parent="baseModel" scope="prototype">
-                    <constructor-arg value="platinum" type="java.lang.String"/>
-                    <constructor-arg value="2019" type="int"/>
-                    <constructor-arg value="true" type="boolean"/>
-                </bean>
-            </list>
-        </property>
-    </bean>
+    <bean id="t1000" class="org.pantheon.robot.ModelT1000" scope="prototype"/>
 
 </beans>
