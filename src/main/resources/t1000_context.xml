@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="toshiba_context.xml"/>
     <import resource="sony_context.xml"/>
-    <import resource="db_context.xml"/>
+
+    <bean id="actionReplacer" class="org.pantheon.ActionReplacer" scope="prototype"/>
 
     <bean id="t1000" class="org.pantheon.ModelT1000"
-          depends-on="databaseBean"
-          parent="baseModel">
+          parent="baseModel"
+          scope="prototype">
         <constructor-arg value="silver" type="java.lang.String"/>
         <constructor-arg value="2006" type="int"/>
         <constructor-arg value="true" type="boolean"/>
-    </bean>
 
-    <bean id="t1000Empty" class="org.pantheon.ModelT1000"
-          scope="prototype"
-          init-method="initMethod"
-          destroy-method="destroyMethod"
-          parent="baseModel">
+        <replaced-method name="action" replacer="actionReplacer"/>
     </bean>
 
     <bean id="baseModel" class="org.pantheon.BaseModel" abstract="true">
