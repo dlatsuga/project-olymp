@@ -5,12 +5,11 @@ import lombok.Setter;
 import org.pantheon.spares.Hand;
 import org.pantheon.spares.Head;
 import org.pantheon.spares.Leg;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.*;
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
 @Getter
 @Setter
@@ -34,7 +33,7 @@ public class ModelT1000 extends BaseModel {
 
     @Bean
     @Scope(value = SCOPE_PROTOTYPE)
-    private ModelT1000 model1 (){
+    private ModelT1000 model1() {
         return new ModelT1000();
     }
 
