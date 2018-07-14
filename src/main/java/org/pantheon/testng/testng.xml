@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="setTestMethodName" verbose="4" parallel="classes" data-provider-thread-count="4" thread-count="4" group-by-instances="true">
+    <test name="TestNG Bug Example">
+        <classes>
+            <class name="org.pantheon.testng.SetTestMethodName"/>
+        </classes>
+    </test>
+</suite>
