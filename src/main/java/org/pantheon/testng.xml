@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite group-by-instances="true" verbose="1" name="TestNG Bug">
-    <test name="TestNG Bug Example">
-        <classes>
-            <class name="org.pantheon.SetTestMethodName"/>
-        </classes>
-    </test>
-</suite>
