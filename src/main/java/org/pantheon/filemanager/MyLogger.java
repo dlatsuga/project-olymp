@@ -13,11 +13,11 @@ import java.util.Set;
 @Component
 @Aspect
 public class MyLogger {
-    @Pointcut("execution(* *(..))")
+    @Pointcut("execution(* org.pantheon.filemanager.Manager.*(..))")
     private void allMethod() {
     }
 
-    @Around("allMethod() && @annotation(org.pantheon.annotation.ShowTime)")
+    @Around("allMethod()")
     public Object watchTime(ProceedingJoinPoint joinPoint) {
         long start = System.currentTimeMillis();
         System.out.println("method begin: " + joinPoint.getSignature().toShortString());
@@ -32,7 +32,7 @@ public class MyLogger {
         return output;
     }
 
-    @AfterReturning(pointcut = "allMethod() && @annotation(org.pantheon.annotation.ShowResult)", returning = "obj")
+    @AfterReturning(value = "allMethod()", returning = "obj")
     public void print(Object obj) {
         System.out.println("print info begin >>");
         if (obj instanceof Set) {
