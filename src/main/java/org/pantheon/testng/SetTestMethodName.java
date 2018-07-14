@@ -19,7 +19,7 @@ public class SetTestMethodName extends SetTestMethodNameBase {
     @Test
     public void test1() throws InterruptedException {
         for (int i = 0; i < 3; i++) {
-            System.out.println("id : "+Thread.currentThread().getId()+ " test: 1 : " + i);
+            System.out.println("id : " + Thread.currentThread().getId() + " test: 1 : " + i);
             Thread.sleep(1000);
         }
     }
@@ -27,7 +27,7 @@ public class SetTestMethodName extends SetTestMethodNameBase {
     @Test(dependsOnMethods = "test1")
     public void test2() throws InterruptedException {
         for (int i = 0; i < 3; i++) {
-            System.out.println("id : "+Thread.currentThread().getId()+ " test: 2 : " + i);
+            System.out.println("id : " + Thread.currentThread().getId() + " test: 2 : " + i);
             Thread.sleep(20);
         }
     }

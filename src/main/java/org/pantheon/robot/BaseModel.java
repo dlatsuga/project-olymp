@@ -6,7 +6,6 @@ import org.pantheon.spares.Hand;
 import org.pantheon.spares.Head;
 import org.pantheon.spares.Leg;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 @Getter
 @Setter

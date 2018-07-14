@@ -9,14 +9,11 @@
        default-lazy-init="true">
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.pantheon"/>
+    <context:component-scan base-package="org.pantheon.filemanager"/>
 
     <aop:config>
         <aop:aspect id="log" ref="myLogger">
-            <aop:pointcut id="getValue" expression="execution(* org.pantheon.SomeService.*(..))"/>
-            <aop:before pointcut-ref="getValue" method="init"/>
-            <aop:after pointcut-ref="getValue" method="close"/>
-            <aop:after-returning pointcut-ref="getValue" returning="obj" method="printValue"/>
+            <aop:around pointcut="execution(public * *(..))" method="watchTime"/>
         </aop:aspect>
     </aop:config>
 </beans>
