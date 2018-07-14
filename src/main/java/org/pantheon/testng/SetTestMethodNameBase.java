@@ -1,4 +1,4 @@
-package org.pantheon;
+package org.pantheon.testng;
 
 import org.testng.ITest;
 import org.testng.annotations.BeforeMethod;
