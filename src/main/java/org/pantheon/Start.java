@@ -8,6 +8,7 @@ public class Start {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("all_context.xml");
         FileManager fileManager = (FileManager) context.getBean("fileManager");
+        fileManager.getExtensionList("C:\\Users\\Dima\\Desktop\\polish");
         fileManager.getExtensionCount("C:\\Users\\Dima\\Desktop\\polish");
     }
 }
