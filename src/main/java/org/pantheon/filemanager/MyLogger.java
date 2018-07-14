@@ -32,20 +32,23 @@ public class MyLogger {
         return output;
     }
 
-    @AfterReturning(value = "allMethod()", returning = "obj")
-    public void print(Object obj) {
+    @AfterReturning(value = "allMethod() && execution(java.util.Set *(..))", returning = "obj")
+    public void printSet(Object obj) {
         System.out.println("print info begin >>");
-        if (obj instanceof Set) {
             Set set = (Set) obj;
             for (Object o : set) {
                 System.out.println(o);
             }
-        } else if (obj instanceof Map) {
+        System.out.println("print info end <<");
+    }
+
+    @AfterReturning(value = "allMethod() && execution(java.util.Map *(..))", returning = "obj")
+    public void printMap(Object obj) {
+        System.out.println("print info begin >>");
             Map map = (Map) obj;
             for (Object o : map.keySet()) {
                 System.out.println("key = " + o + "," + map.get(o));
             }
-        }
         System.out.println("print info end <<");
     }
 }
