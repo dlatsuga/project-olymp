@@ -1,5 +1,7 @@
 package org.pantheon.filemanager;
 
+import org.pantheon.annotation.ShowResult;
+import org.pantheon.annotation.ShowTime;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -11,6 +13,7 @@ import java.util.TreeSet;
 
 @Component
 public class FileManager {
+    @ShowTime
     public Set<String> getExtensionList(String folder) {
         File dir = new File(folder);
         Set<String> extList = new TreeSet<>();
@@ -24,6 +27,8 @@ public class FileManager {
         return extList;
     }
 
+    @ShowTime
+    @ShowResult
     public Map<String, Integer> getExtensionCount(String folder) {
         File dir = new File(folder);
         Map<String, Integer> map = new HashMap<>();
