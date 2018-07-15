@@ -36,10 +36,10 @@ public class MyLogger {
     public void printSet(Object obj, String folder) {
         System.out.println("print info begin >>");
         System.out.println("Folder = " + folder);
-            Set set = (Set) obj;
-            for (Object o : set) {
-                System.out.println(o);
-            }
+        Set set = (Set) obj;
+        for (Object o : set) {
+            System.out.println(o);
+        }
         System.out.println("print info end <<");
     }
 
@@ -47,10 +47,10 @@ public class MyLogger {
     public void printMap(Object obj, String folder) {
         System.out.println("print info begin >>");
         System.out.println("Folder = " + folder);
-            Map map = (Map) obj;
-            for (Object o : map.keySet()) {
-                System.out.println("key = " + o + "," + map.get(o));
-            }
+        Map map = (Map) obj;
+        for (Object o : map.keySet()) {
+            System.out.println("key = " + o + "," + map.get(o));
+        }
         System.out.println("print info end <<");
     }
 }

@@ -18,4 +18,6 @@ public interface Mp3Dao {
     List<Mp3> getMp3ListBySong(String song);
 
     List<Mp3> getMp3ListByAuthor(String author);
+
+    int getMp3Count();
 }
