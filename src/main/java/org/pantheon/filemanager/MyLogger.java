@@ -32,9 +32,10 @@ public class MyLogger {
         return output;
     }
 
-    @AfterReturning(value = "allMethod() && execution(java.util.Set *(..))", returning = "obj")
-    public void printSet(Object obj) {
+    @AfterReturning(value = "allMethod() && execution(java.util.Set *(String)) && args(folder)", returning = "obj")
+    public void printSet(Object obj, String folder) {
         System.out.println("print info begin >>");
+        System.out.println("Folder = " + folder);
             Set set = (Set) obj;
             for (Object o : set) {
                 System.out.println(o);
@@ -42,9 +43,10 @@ public class MyLogger {
         System.out.println("print info end <<");
     }
 
-    @AfterReturning(value = "allMethod() && execution(java.util.Map *(..))", returning = "obj")
-    public void printMap(Object obj) {
+    @AfterReturning(value = "allMethod() && execution(java.util.Map *(String)) && args(folder)", returning = "obj")
+    public void printMap(Object obj, String folder) {
         System.out.println("print info begin >>");
+        System.out.println("Folder = " + folder);
             Map map = (Map) obj;
             for (Object o : map.keySet()) {
                 System.out.println("key = " + o + "," + map.get(o));
