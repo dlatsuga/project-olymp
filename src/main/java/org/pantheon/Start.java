@@ -1,14 +1,18 @@
 package org.pantheon;
 
-import org.pantheon.filemanager.FileManager;
+import org.pantheon.jdbc.Mp3;
+import org.pantheon.jdbc.dao.PostgreSqlDao;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Start {
     public static void main(String[] args) {
+        Mp3 mp3 = new Mp3();
+        mp3.setAuthor("MKTO2");
+        mp3.setSong("Monaco2");
+
         ApplicationContext context = new ClassPathXmlApplicationContext("all_context.xml");
-        FileManager fileManager = (FileManager) context.getBean("fileManager");
-        fileManager.getExtensionList("C:\\Users\\Dima\\Desktop\\polish");
-        fileManager.getExtensionCount("C:\\Users\\Dima\\Desktop\\polish");
+        PostgreSqlDao postgreSqlDao = (PostgreSqlDao) context.getBean("postgresqldao");
+        postgreSqlDao.insert(mp3);
     }
 }
