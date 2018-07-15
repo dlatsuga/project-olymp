@@ -11,4 +11,10 @@
     <context:component-scan base-package="org.pantheon"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/springcore" />
+        <property name="username" value="postgres" />
+        <property name="password" value="Ldg131531" />
+    </bean>
 </beans>
