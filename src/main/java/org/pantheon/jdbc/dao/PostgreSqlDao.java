@@ -1,5 +1,6 @@
 package org.pantheon.jdbc.dao;
 
+import org.pantheon.jdbc.Author;
 import org.pantheon.jdbc.Mp3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,7 +49,7 @@ public class PostgreSqlDao implements Mp3Dao {
 
     @Override
     public Mp3 getMp3ById(int id) {
-        String sql = "Select * from spring_core_tmp.mp3 Where id = ?";
+        String sql = "Select * from spring_core_tmp.mp3view Where id = ?";
         return jdbcTemplate.queryForObject(sql, new Mp3RowMapper(), id);
     }
 
@@ -74,11 +75,16 @@ public class PostgreSqlDao implements Mp3Dao {
 
         @Override
         public Mp3 mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-            Mp3 mp3 = new Mp3();
-            mp3.setId(resultSet.getInt("id"));
-            mp3.setAuthor(resultSet.getString("author"));
-            mp3.setSong(resultSet.getString("song"));
-            return mp3;
+            Author author = Author.builder()
+                    .id(resultSet.getInt("author_id"))
+                    .name(resultSet.getString("author_name"))
+                    .build();
+
+            return Mp3.builder()
+                    .id(resultSet.getInt("id"))
+                    .author(author)
+                    .song(resultSet.getString("song"))
+                    .build();
         }
     }
 }

@@ -9,8 +9,7 @@ import lombok.ToString;
 @Setter
 @Builder
 @ToString
-public class Mp3 {
+public class Author {
     private int id;
-    private Author author;
-    private String song;
+    private String name;
 }
