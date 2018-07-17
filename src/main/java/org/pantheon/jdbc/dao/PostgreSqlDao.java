@@ -55,13 +55,13 @@ public class PostgreSqlDao implements Mp3Dao {
 
     @Override
     public List<Mp3> getMp3ListBySong(String song) {
-        String sql = "Select * from spring_core_tmp.mp3 tt Where tt.song like ?";
+        String sql = "Select * from spring_core_tmp.mp3view tt Where tt.song like ?";
         return jdbcTemplate.query(sql, new Mp3RowMapper(), format("%%%s%%", song));
     }
 
     @Override
     public List<Mp3> getMp3ListByAuthor(String author) {
-        String sql = "Select * from spring_core_tmp.mp3 tt Where tt.author like ?";
+        String sql = "Select * from spring_core_tmp.mp3view tt Where tt.author_name like ?";
         return jdbcTemplate.query(sql, new Mp3RowMapper(), format("%%%s%%", author));
     }
 
