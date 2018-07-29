@@ -26,8 +26,8 @@ public class Parser {
     public static void main(String[] args) throws IOException {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        boolean isURLCorrect = false;
-        String inputString = null;
+        String inputString;
+        boolean isURLCorrect;
 
         do {
             System.out.println("Please type valid URL or Exit");
@@ -47,12 +47,7 @@ public class Parser {
                 .connect(inputString)
                 .get();
 
-//        File input = new File("C:\\Users\\Dima\\IdeaProjects\\makeeverythingok\\src\\main\\resources\\tmp_test.html");
-//        Document document = Jsoup.parse(input, null);
-
         List<Node> nodes = document.childNodes();
-
-
         searchElementByAttribute(nodes, attributeOfElementToSearch);
 
         if (!pathToElements.isEmpty()) {
