@@ -1,7 +1,6 @@
 package org.pantheon.tmp.my;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.lang.Integer.valueOf;
 import static java.util.Arrays.asList;
-import static java.util.Arrays.sort;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
@@ -26,6 +24,10 @@ public class SetDescription {
     private Map<Integer, List<Integer>> uniquePairsIndexes = new HashMap<>();
     private Map<Integer, List<Object>> uniquePairsValues = new HashMap<>();
     private Map<Integer, List<Integer>> pairsWise = new HashMap<>();
+    private Map<Integer, List<Object>> pairsWiseValues = new HashMap<>();
+
+    private Map<Integer, Boolean> freePairs = new HashMap<>();
+    private List<Integer> indexesOfFreeElementsInTuple;
 
     public void addSubSet(SubSetDescription subSetDescription) {
 
@@ -106,40 +108,31 @@ public class SetDescription {
     public void generatePairWise() {
 
 
-        Map<Integer, Boolean> freePairs = new HashMap<>();
-
-
         for (Integer indexOfUniquePair : uniquePairsIndexes.keySet()) {
             freePairs.put(indexOfUniquePair, TRUE);
         }
 
 
-        List<Integer> indexesOfFreeElementsInTuple;
         Integer indexOfPairWise = 0;
         for (Integer currentUniquePairsIndex : uniquePairsIndexes.keySet()) {
 
-
             indexesOfFreeElementsInTuple = IntStream.rangeClosed(0, subSetIndex - 1).boxed().collect(toList());
-
             Integer[] tuple = new Integer[subSetIndex];
-//            List<Integer> tuple = new ArrayList<>(subSetIndex);
 
             // Заполнили две ячейки кортежа
             if (freePairs.get(currentUniquePairsIndex)) {
-                System.out.println("currentUniquePairsIndex : " + currentUniquePairsIndex);
-
-                if(currentUniquePairsIndex.equals(4)){
-                    System.out.println();
-                }
+//                System.out.println("currentUniquePairsIndex : " + currentUniquePairsIndex);
 
                 List<Integer> pairCandidateForTuple = uniquePairsIndexes.get(currentUniquePairsIndex);
 
-                for (int carriage = 0; carriage < pairCandidateForTuple.size() - 1; ) {
-                    int tupleIndex = pairCandidateForTuple.get(carriage);
-                    tuple[tupleIndex] = pairCandidateForTuple.get(carriage + 1);
+                if(checkIfFreePairForCandidateAvailable(pairCandidateForTuple)){
+                    for (int carriage = 0; carriage < pairCandidateForTuple.size() - 1; ) {
+                        int tupleIndex = pairCandidateForTuple.get(carriage);
+                        tuple[tupleIndex] = pairCandidateForTuple.get(carriage + 1);
 
-                    indexesOfFreeElementsInTuple.remove(valueOf(tupleIndex));
-                    carriage += 2;
+                        indexesOfFreeElementsInTuple.remove(valueOf(tupleIndex));
+                        carriage += 2;
+                    }
                 }
 
                 // Указали, что данная пара уже использована. Ее надо скипать в следующих итерациях
@@ -156,7 +149,7 @@ public class SetDescription {
                     for (Map.Entry<Integer, List<Integer>> candidatePair : uniquePairsIndexes.entrySet()) {
 
                         Integer pairCandidateIndex = candidatePair.getKey();
-                        System.out.println("pairCandidateIndex : " + pairCandidateIndex);
+//                        System.out.println("pairCandidateIndex : " + pairCandidateIndex);
 
                         if (freePairs.get(pairCandidateIndex)) { // если пара свободна
 
@@ -181,12 +174,18 @@ public class SetDescription {
                                     tuple[indexOfCandidateSubSetForTuple] = candidateElementForFreePlaceInTuple;
 //                                    tuple.add(indexOfCandidateSubSetForTuple, candidateElementForFreePlaceInTuple);
 
-                                    //грохнули индекс который надо было заполнить
-                                    indexesOfFreeElementsInTuple.remove(indexOfCandidateSubSetForTuple);
+                                    if (checkDuplicatesInPairWiseMap(tuple)) {
+                                        // Сказали, что индекс пары уже использован
+                                        freePairs.put(pairCandidateIndex, FALSE);
+                                        break outer;
+                                    } else {
+                                        //грохнули индекс который надо было заполнить
+                                        indexesOfFreeElementsInTuple.remove(indexOfCandidateSubSetForTuple);
 
-                                    // Сказали, что индекс пары уже использован
-                                    freePairs.put(pairCandidateIndex, FALSE);
-                                    break outer;
+                                        // Сказали, что индекс пары уже использован
+                                        freePairs.put(pairCandidateIndex, FALSE);
+                                        break outer;
+                                    }
                                 }
                             }
                         }
@@ -198,8 +197,65 @@ public class SetDescription {
             }
 
         }
-        System.out.println("THE END");
+//        System.out.println("THE END");
 
+    }
+
+    public Map<Integer, List<Object>> getPairsWiseValues() {
+
+        for (Map.Entry<Integer, List<Integer>> pairWiseIndexes : pairsWise.entrySet()) {
+            List<Object> values = new ArrayList<>();
+            List<Integer> valuesIndexes = pairWiseIndexes.getValue();
+            for (int i = 0; i < valuesIndexes.size(); i++) {
+                Integer indexOfElement = valuesIndexes.get(i);
+                values.add(subSets.get(i).getElementsInSubSet().get(indexOfElement));
+            }
+            pairsWiseValues.put(pairWiseIndexes.getKey(), values);
+        }
+
+        return pairsWiseValues;
+    }
+
+    private boolean checkIfFreePairForCandidateAvailable(List<Integer> pairCandidateForTuple) {
+
+        List<Integer> requiredIndexesForCompleteTuple = IntStream.rangeClosed(0, subSetIndex - 1).boxed().collect(toList());
+        requiredIndexesForCompleteTuple.remove(pairCandidateForTuple.get(0));
+        requiredIndexesForCompleteTuple.remove(pairCandidateForTuple.get(2));
+
+        List<Integer> freeIndexes = freePairs.entrySet().stream()
+                .filter(addSubSet -> addSubSet.getValue().equals(TRUE))
+                .map(Map.Entry::getKey)
+                .collect(toList());
+
+        outer:for (Integer requiredIndex : requiredIndexesForCompleteTuple) {
+            for (Integer freeIndex : freeIndexes) {
+                List<Integer> checkedFreePair = uniquePairsIndexes.get(freeIndex);
+                if (checkedFreePair.get(0).equals(requiredIndex)) {
+                    requiredIndexesForCompleteTuple.remove(checkedFreePair.get(0));
+                    break outer;
+                } else if (checkedFreePair.get(2).equals(requiredIndex)){
+                    requiredIndexesForCompleteTuple.remove(checkedFreePair.get(2));
+                    break outer;
+                }
+            }
+        }
+        return requiredIndexesForCompleteTuple.size() == 0;
+    }
+
+    private boolean checkDuplicatesInPairWiseMap(Integer[] tuple) {
+
+        for (Map.Entry<Integer, List<Integer>> pairWiseTuples : pairsWise.entrySet()) {
+            List<Integer> pairWiseValues = pairWiseTuples.getValue();
+            for (int i = 0; i < pairWiseValues.size() - 1; i++) {
+                boolean isFirstElementOfPairDuplicate = tuple[i].equals(pairWiseValues.get(i));
+                boolean isSecondElementOfPairDuplicate = tuple[i + 1].equals(pairWiseValues.get(i + 1));
+                if (isFirstElementOfPairDuplicate && isSecondElementOfPairDuplicate) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public Map<Integer, List<Integer>> getPairsWise() {

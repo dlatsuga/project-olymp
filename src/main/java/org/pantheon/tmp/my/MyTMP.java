@@ -29,7 +29,10 @@ public class MyTMP {
 
         Map<Integer, List<Object>> allPairsValues = setDescription.getUniquePairsValues();
         allPairsValues.forEach((k, v) -> System.out.println(k + ":\t" + v));
+        System.out.println("***********************************************************");
 
         setDescription.generatePairWise();
+        Map<Integer, List<Object>> pairsWiseValues = setDescription.getPairsWiseValues();
+        pairsWiseValues.forEach((k, v) -> System.out.println(k + ":\t" + v));
     }
 }
