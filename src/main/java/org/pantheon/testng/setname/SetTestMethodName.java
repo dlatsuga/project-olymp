@@ -1,4 +1,4 @@
-package org.pantheon.testng;
+package org.pantheon.testng.setname;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;

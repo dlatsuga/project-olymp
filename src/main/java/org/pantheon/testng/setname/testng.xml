@@ -4,7 +4,7 @@
        group-by-instances="true">
     <test name="TestNG Bug Example">
         <classes>
-            <class name="org.pantheon.testng.SetTestMethodName"/>
+            <class name="org.pantheon.testng.setname.SetTestMethodName"/>
         </classes>
     </test>
 </suite>
