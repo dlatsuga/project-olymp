@@ -18,7 +18,6 @@ import static java.util.stream.Collectors.toMap;
 
 public class SetDescription {
     private int subSetIndex = 0;
-    private int countOfElementsInSet = 0;
     private List<SubSetDescription> subSets = new ArrayList<>();
     private Map<Integer, Set<Integer>> elementsInSet = new HashMap<>();
     private Map<Integer, List<Integer>> uniquePairsIndexes = new HashMap<>();
@@ -37,18 +36,9 @@ public class SetDescription {
         Set<Integer> elementsIndexesInSubSet = subSetDescription.getElementsInSubSet().keySet();
         elementsInSet.put(subSetIndex, elementsIndexesInSubSet);
 
-        updateCountOfElementsInSet(elementsIndexesInSubSet.size());
-
         subSetIndex++;
     }
 
-    private void updateCountOfElementsInSet(int countOfElementsInSubSet) {
-        countOfElementsInSet += countOfElementsInSubSet;
-    }
-
-    public int getCountOfElementsInSet() {
-        return countOfElementsInSet;
-    }
 
     public void generateUniquePairs() {
 
@@ -58,17 +48,19 @@ public class SetDescription {
 
             int currentIndex = currentSubSetIndex;
 
+            // Подмножество для первого элемента пары
             Map<Integer, Set<Integer>> firstElementSet = elementsInSet.entrySet().stream()
-                    .filter(allSubSets -> !allSubSets.getKey().equals(currentIndex))
+                    .filter(allSubSets -> allSubSets.getKey().equals(currentIndex))
                     .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
 
+            // Подмножество для второго элемента пары
             Map<Integer, Set<Integer>> secondElementSet = elementsInSet.entrySet().stream()
                     .filter(allSubSets -> !allSubSets.getKey().equals(currentIndex))
                     .filter(allSubSets -> allSubSets.getKey() > currentIndex)
                     .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
 
 
-            for (Integer indexOfCurrentElement : firstElementSet.get(currentIndex + 1)) {
+            for (Integer indexOfCurrentElement : firstElementSet.get(currentIndex)) {
                 for (Map.Entry<Integer, Set<Integer>> pairSubSets : secondElementSet.entrySet()) {
 
                     int pairSubSetIndex = pairSubSets.getKey();
@@ -121,7 +113,10 @@ public class SetDescription {
 
             // Заполнили две ячейки кортежа
             if (freePairs.get(currentUniquePairsIndex)) {
-//                System.out.println("currentUniquePairsIndex : " + currentUniquePairsIndex);
+                System.out.println("currentUniquePairsIndex : " + currentUniquePairsIndex);
+                if(currentUniquePairsIndex.equals(2)){
+                    System.out.println();
+                }
 
                 List<Integer> pairCandidateForTuple = uniquePairsIndexes.get(currentUniquePairsIndex);
 
@@ -149,9 +144,19 @@ public class SetDescription {
                     for (Map.Entry<Integer, List<Integer>> candidatePair : uniquePairsIndexes.entrySet()) {
 
                         Integer pairCandidateIndex = candidatePair.getKey();
-//                        System.out.println("pairCandidateIndex : " + pairCandidateIndex);
+                        System.out.println("pairCandidateIndex : " + pairCandidateIndex);
 
                         if (freePairs.get(pairCandidateIndex)) { // если пара свободна
+
+                            /*
+                            *
+                            * Вот тут сука надо сплитовочку захуярить..
+                            * проверять где стоит нужный элемент и матчится ли его брат кандидат с уже существующими в кортеже
+                            * если все ровно то дозаполняем кортеж...
+                            * схожая проверка уже есть в проверке
+                            * checkIfFreePairForCandidateAvailable
+                            *
+                            * */
 
                             // индекс подмножества которое хотим запиндорить в пустую ячейку кортежа
                             Integer indexOfCandidateSubSetForTuple = candidatePair.getValue().get(2);
@@ -197,7 +202,7 @@ public class SetDescription {
             }
 
         }
-//        System.out.println("THE END");
+        System.out.println("THE END");
 
     }
 
@@ -230,10 +235,27 @@ public class SetDescription {
         outer:for (Integer requiredIndex : requiredIndexesForCompleteTuple) {
             for (Integer freeIndex : freeIndexes) {
                 List<Integer> checkedFreePair = uniquePairsIndexes.get(freeIndex);
-                if (checkedFreePair.get(0).equals(requiredIndex)) {
+                // checkedFreePair.get(0).equals(requiredIndex) -- проверяем, что у нас есть свободный элемент который нужен для кортежа
+                // плюс проверяем, что второй едемент в проверяемой паре соответствует элементу в паре претенденте
+
+                Integer indexOfFirstSubSetInCheckedPair = checkedFreePair.get(0);
+                Integer indexOfSecondSubSetInCheckedPair = checkedFreePair.get(2);
+                Integer indexOfFirstElementInCheckedPair = checkedFreePair.get(1);
+                Integer indexOfSecondElementInCheckedPair = checkedFreePair.get(3);
+
+                Integer indexOfFirstSubSetInCandidatePair = pairCandidateForTuple.get(0);
+                Integer indexOfSecondSubSetInCandidatePair = pairCandidateForTuple.get(2);
+                Integer indexOfFirstElementInCandidatePair = pairCandidateForTuple.get(1);
+                Integer indexOfSecondElementInCandidatePair = pairCandidateForTuple.get(3);
+
+                if (checkedFreePair.get(0).equals(requiredIndex)
+                        && (indexOfSecondSubSetInCheckedPair.equals(indexOfSecondSubSetInCandidatePair)
+                        && indexOfSecondElementInCheckedPair.equals(indexOfSecondElementInCandidatePair))) {
                     requiredIndexesForCompleteTuple.remove(checkedFreePair.get(0));
                     break outer;
-                } else if (checkedFreePair.get(2).equals(requiredIndex)){
+                } else if (checkedFreePair.get(2).equals(requiredIndex)
+                        && (indexOfFirstSubSetInCheckedPair.equals(indexOfFirstSubSetInCandidatePair)
+                        && indexOfFirstElementInCheckedPair.equals(indexOfFirstElementInCandidatePair))){
                     requiredIndexesForCompleteTuple.remove(checkedFreePair.get(2));
                     break outer;
                 }
