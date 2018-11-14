@@ -31,7 +31,8 @@ public class MyTMP {
         allPairsValues.forEach((k, v) -> System.out.println(k + ":\t" + v));
         System.out.println("***********************************************************");
 
-        setDescription.generatePairWise();
+//        setDescription.generatePairWise();
+        setDescription.newGeneratePairWise();
         Map<Integer, List<Object>> pairsWiseValues = setDescription.getPairsWiseValues();
         pairsWiseValues.forEach((k, v) -> System.out.println(k + ":\t" + v));
     }
