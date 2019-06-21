@@ -8,8 +8,6 @@ public class Start {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("all_context.xml");
         PostgreSqlDao postgreSqlDao = (PostgreSqlDao) context.getBean("postgresqldao");
-        System.out.println(postgreSqlDao.getMp3ListBySong("Monaco").size());
-        System.out.println(postgreSqlDao.getMp3ListByAuthor("Dio").size());
-        System.out.println(postgreSqlDao.getMp3Count());
+        System.out.println(postgreSqlDao.getMp3ById(1));
     }
 }
